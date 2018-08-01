@@ -8,7 +8,6 @@
            #bookTitle="ngModel"
            required
            minlength="2"
-           placeholder="Real-Time Rendering, Third Edition"
            [(ngModel)]="book.title"
            [ngClass]="{'is-invalid': bookTitle.errors && bookTitle.touched}">
     <div
@@ -32,7 +31,6 @@
            #bookDesc="ngModel"
            required
            minlength="10"
-           placeholder="This is my favorite 3D graphics book by a wide margin."
            [(ngModel)]="book.description"
            [ngClass]="{'is-invalid': bookDesc.errors && bookDesc.touched}">
     <div
@@ -54,7 +52,6 @@
         class="form-control"
         id="currentPage"
         name="currentPage"
-        placeholder="0"
         #bookCurrentPage="ngModel"
         required
         [(ngModel)]="book.currentPage"
@@ -76,7 +73,6 @@
              class="form-control"
              id="totalPage"
              name="totalPage"
-             placeholder="1000"
              #bookTotalPage="ngModel"
              required
              [(ngModel)]="book.totalPage"
@@ -105,7 +101,6 @@
            class="form-control"
            id="quoteContent"
            name="quoteContent"
-           placeholder="You'll get brilliantly lucid explanations of concepts like vertex morphing and variance shadow mapping."
            #bookQuoteContent="ngModel"
            required
            minlength="10"
@@ -128,7 +123,6 @@
            class="form-control"
            id="quoteAuthor"
            name="quoteAuthor"
-           placeholder="Logan Decker"
            #bookQuoteAuthor="ngModel"
            minlength="2"
            [(ngModel)]="book.quote.author"

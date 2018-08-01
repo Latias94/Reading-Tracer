@@ -37,7 +37,8 @@ export class BooksComponent implements OnInit {
   }
 
   getProcess(book: Book) {
-    return book.currentPage / book.totalPage;
+    const process = book.currentPage / book.totalPage;
+    return process > 1 ? 1 : process;
   }
 
   onNewBook(isAdd: boolean) {
