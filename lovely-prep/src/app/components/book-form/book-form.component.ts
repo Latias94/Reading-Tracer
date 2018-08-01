@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, EventEmitter, Output, Input } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from '../../services/data.service';
 import { Book } from '../../models/Book';
 
@@ -20,7 +20,6 @@ export class BookFormComponent implements OnInit {
       author: ''
     }
   };
-  postForEmit: Book;
   isEdit: boolean = false;
   @Output() isAddBook: EventEmitter<boolean> = new EventEmitter();
 
@@ -71,6 +70,15 @@ export class BookFormComponent implements OnInit {
     this.quoteAuthorValid = this.myform.controls['quoteAuthor'];
   }
 
+  // add quote form control
+  enabledQuoteValid() {
+    if (!this.enabledQuote) {
+      this.quoteContentValid.setValidators([Validators.minLength(10), Validators.required]);
+    } else {
+      this.quoteContentValid.clearValidators();
+    }
+    this.quoteContentValid.updateValueAndValidity();
+  }
 
   ngOnInit() {
   }
@@ -99,7 +107,7 @@ export function pageValidator() {
     const total = group.controls['totalPage'];
     if (current.value !== null && total.value !== null) {
       if (current.value > total.value) {
-        current.setErrors({invalidPage: true});
+        // return current.setErrors({invalidPage: true});
         return total.setErrors({invalidPage: true});
       }
     }

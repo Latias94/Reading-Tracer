@@ -1,6 +1,6 @@
 <form [formGroup]="myform" (ngSubmit)="onSubmit(myform.value)">
   <div class="form-group">
-    <label for="title">Book title</label>
+    <label for="title">Book title *</label>
     <input type="text"
            class="form-control"
            id="title"
@@ -21,7 +21,7 @@
   </div>
 
   <div class="form-group">
-    <label for="description">Book description</label>
+    <label for="description">Book description *</label>
     <input type="text"
            class="form-control"
            id="description"
@@ -42,7 +42,7 @@
   </div>
   <div class="form-row">
     <div class="form-group col-md-6">
-      <label for="currentPage">Current pages you are reading</label>
+      <label for="currentPage">Current pages you are reading *</label>
       <input
         type="number"
         class="form-control"
@@ -56,11 +56,11 @@
         *ngIf="currPageValid.hasError('min')">
         Must be equal to or more than zero pages
       </div>
-      <div
-        class="invalid-feedback"
-        *ngIf="currPageValid.hasError('invalidPage')">
-        Must be less than total pages
-      </div>
+      <!--<div-->
+        <!--class="invalid-feedback"-->
+        <!--*ngIf="currPageValid.hasError('invalidPage')">-->
+        <!--Must be less than total pages-->
+      <!--</div>-->
       <div
         class="invalid-feedback"
         *ngIf="currPageValid.hasError('required')">
@@ -68,7 +68,7 @@
       </div>
     </div>
     <div class="form-group col-md-6">
-      <label for="totalPage">Total pages of book</label>
+      <label for="totalPage">Total pages of book *</label>
       <input type="number"
              class="form-control"
              id="totalPage"
@@ -95,13 +95,17 @@
   </div>
   <div class="form-group">
     <div class="custom-control custom-checkbox mb-3">
-      <input type="checkbox" class="custom-control-input" id="checkbox" (change)="enabledQuote = !enabledQuote"
-             [checked]="enabledQuote">
+      <input type="checkbox"
+             class="custom-control-input"
+             id="checkbox"
+             (change)="enabledQuote = !enabledQuote"
+             [checked]="enabledQuote"
+             (click)="enabledQuoteValid()">
       <label class="custom-control-label" for="checkbox">Add Quote</label>
     </div>
   </div>
   <div class="form-group" *ngIf="enabledQuote">
-    <label for="quoteContent">Quote content</label>
+    <label for="quoteContent">Quote content *</label>
     <input type="text"
            class="form-control"
            id="quoteContent"
@@ -113,6 +117,11 @@
       class="invalid-feedback"
       *ngIf="quoteContentValid.hasError('minlength')">
       Must be at least 10 characters
+    </div>
+    <div
+      class="invalid-feedback"
+      *ngIf="quoteContentValid.hasError('required')">
+      This field is required
     </div>
   </div>
   <div class="form-group" *ngIf="enabledQuote">
