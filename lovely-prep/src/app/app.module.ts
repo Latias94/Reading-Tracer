@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { BooksComponent } from './components/books/books.component';
 import { UiModule } from './ui/ui.module';
@@ -19,6 +19,7 @@ import { BookFormComponent } from './components/book-form/book-form.component';
     FormsModule,
     UiModule,
     HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [DataService],
   bootstrap: [AppComponent]

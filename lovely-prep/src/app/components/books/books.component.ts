@@ -57,18 +57,10 @@ export class BooksComponent implements OnInit {
 
   removeBook(book: Book) {
     this.dataService.removeBook(book).subscribe(result => {
-       // reload page
+      // reload page
       this.dataService.getBooks().subscribe(books => {
         this.books = books;
       });
     });
   }
 }
-
-// export function minValue(min: Number): ValidatorFn {
-//   return (control: AbstractControl): { [key: string]: any } => {
-//     const input = control.value,
-//       isValid = input > min;
-//     return isValid ? {'minValue': {min}} : null;
-//   };
-// }

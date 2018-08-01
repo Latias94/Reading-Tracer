@@ -1,23 +1,21 @@
-<form #bookForm="ngForm" (ngSubmit)="onSubmit(bookForm)">
+<form [formGroup]="myform" (ngSubmit)="onSubmit(myform.value)">
   <div class="form-group">
     <label for="title">Book title</label>
     <input type="text"
-           class="form-control is-invalid"
+           class="form-control"
            id="title"
            name="title"
-           #bookTitle="ngModel"
-           required
-           minlength="2"
+           [formControl]="myform.controls['title']"
            [(ngModel)]="book.title"
-           [ngClass]="{'is-invalid': bookTitle.errors && bookTitle.touched}">
+           [ngClass]="{'is-invalid': !titleValid.valid && titleValid.touched }">
     <div
       class="invalid-feedback"
-      *ngIf="bookTitle.errors?.minlength">
+      *ngIf="titleValid.hasError('minlength')">
       Must be at least 2 characters
     </div>
     <div
       class="invalid-feedback"
-      *ngIf="bookTitle.errors?.required">
+      *ngIf="titleValid.hasError('required')">
       This field is required
     </div>
   </div>
@@ -28,70 +26,77 @@
            class="form-control"
            id="description"
            name="description"
-           #bookDesc="ngModel"
-           required
-           minlength="10"
+           [formControl]="myform.controls['description']"
            [(ngModel)]="book.description"
-           [ngClass]="{'is-invalid': bookDesc.errors && bookDesc.touched}">
+           [ngClass]="{'is-invalid': !descValid.valid && descValid.touched}">
     <div
       class="invalid-feedback"
-      *ngIf="bookDesc.errors?.minlength">
+      *ngIf="descValid.hasError('minlength')">
       Must be at least 10 characters
     </div>
     <div
       class="invalid-feedback"
-      *ngIf="bookDesc.errors?.required">
+      *ngIf="descValid.hasError('required')">
       This field is required
     </div>
   </div>
   <div class="form-row">
     <div class="form-group col-md-6">
-      <label for="currentPage">Current page you are reading</label>
+      <label for="currentPage">Current pages you are reading</label>
       <input
         type="number"
         class="form-control"
         id="currentPage"
         name="currentPage"
-        #bookCurrentPage="ngModel"
-        required
+        [formControl]="myform.controls['currentPage']"
         [(ngModel)]="book.currentPage"
-        [ngClass]="{'is-invalid': bookCurrentPage.errors && bookCurrentPage.touched}">
-      <!--<div-->
-      <!--class="invalid-feedback"-->
-      <!--*ngIf="bookCurrentPage.errors?.min">-->
-      <!--Must be equal to or more than zero pages-->
-      <!--</div>-->
+        [ngClass]="{'is-invalid':  !currPageValid.valid && currPageValid.touched}">
       <div
         class="invalid-feedback"
-        *ngIf="bookCurrentPage.errors?.required">
+        *ngIf="currPageValid.hasError('min')">
+        Must be equal to or more than zero pages
+      </div>
+      <div
+        class="invalid-feedback"
+        *ngIf="currPageValid.hasError('invalidPage')">
+        Must be less than total pages
+      </div>
+      <div
+        class="invalid-feedback"
+        *ngIf="currPageValid.hasError('required')">
         This field is required
       </div>
     </div>
     <div class="form-group col-md-6">
-      <label for="totalPage">Total page of book</label>
+      <label for="totalPage">Total pages of book</label>
       <input type="number"
              class="form-control"
              id="totalPage"
              name="totalPage"
-             #bookTotalPage="ngModel"
-             required
+             [formControl]="myform.controls['totalPage']"
              [(ngModel)]="book.totalPage"
-             [ngClass]="{'is-invalid': bookTotalPage.errors && bookTotalPage.touched}">
-      <!--<div-->
-      <!--class="invalid-feedback"-->
-      <!--*ngIf="bookTotalPage.errors?.min">-->
-      <!--Must be more than zero pages-->
-      <!--</div>-->
+             [ngClass]="{'is-invalid': !totalPageValid.valid && totalPageValid.touched}">
       <div
         class="invalid-feedback"
-        *ngIf="bookTotalPage.errors?.required">
+        *ngIf="totalPageValid.hasError('min')">
+        Must be more than zero pages
+      </div>
+      <div
+        class="invalid-feedback"
+        *ngIf="totalPageValid.hasError('invalidPage')">
+        Must be more than current pages
+      </div>
+      <div
+        class="invalid-feedback"
+        *ngIf="totalPageValid.hasError('required')">
         This field is required
       </div>
     </div>
   </div>
   <div class="form-group">
     <div class="custom-control custom-checkbox mb-3">
-      <input type="checkbox" class="custom-control-input" id="checkbox" (change)="enabledQuote = !enabledQuote" [checked]="enabledQuote">
+      <input type="checkbox" class="custom-control-input" id="checkbox" (change)="enabledQuote = !enabledQuote"
+             [checked]="enabledQuote">
       <label class="custom-control-label" for="checkbox">Add Quote</label>
     </div>
   </div>
@@ -101,20 +106,13 @@
            class="form-control"
            id="quoteContent"
            name="quoteContent"
-           #bookQuoteContent="ngModel"
-           required
-           minlength="10"
+           [formControl]="myform.controls['quoteContent']"
            [(ngModel)]="book.quote.content"
-           [ngClass]="{'is-invalid': bookQuoteContent.errors && bookQuoteContent.touched}">
+           [ngClass]="{'is-invalid': !quoteContentValid.valid && quoteContentValid.touched}">
     <div
       class="invalid-feedback"
-      *ngIf="bookQuoteContent.errors?.minlength">
+      *ngIf="quoteContentValid.hasError('minlength')">
       Must be at least 10 characters
-    </div>
-    <div
-      class="invalid-feedback"
-      *ngIf="bookQuoteContent.errors?.required">
-      This field is required
     </div>
   </div>
   <div class="form-group" *ngIf="enabledQuote">
@@ -123,29 +121,23 @@
            class="form-control"
            id="quoteAuthor"
            name="quoteAuthor"
-           #bookQuoteAuthor="ngModel"
-           minlength="2"
+           [formControl]="myform.controls['quoteAuthor']"
            [(ngModel)]="book.quote.author"
-           [ngClass]="{'is-invalid': bookQuoteAuthor.errors && bookQuoteAuthor.touched}">
+           [ngClass]="{'is-invalid': !quoteAuthorValid.valid && quoteAuthorValid.touched}">
     <div
       class="invalid-feedback"
-      *ngIf="bookQuoteAuthor.errors?.minlength">
+      *ngIf="quoteAuthorValid.hasError('minlength')">
       Must be at least 2 characters
-    </div>
-    <div
-      class="invalid-feedback"
-      *ngIf="bookQuoteAuthor.errors?.required">
-      This field is required
     </div>
   </div>
   <button
     *ngIf="!isEdit"
-    [disabled]="!bookForm.form.valid"
+    [disabled]="!myform.valid"
     class="btn btn-primary btn-block mb-3">Add Book
   </button>
   <button
     *ngIf="isEdit"
-    [disabled]="!bookForm.form.valid"
+    [disabled]="!myform.valid"
     class="btn btn-warning btn-block mb-3">Edit Book
   </button>
 </form>
