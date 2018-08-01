@@ -1,0 +1,24 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Server side of Lovely-Prep project",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "cd ../lovely-prep && ng serve --open",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "install-client": "cd ../lovely-prep && npm install"
+  },
+  "author": "Mingzhen Zhuang",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "concurrently": "^3.6.1",
+    "express": "^4.16.3",
+    "mongoose": "^5.2.6"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.3"
+  }
+}

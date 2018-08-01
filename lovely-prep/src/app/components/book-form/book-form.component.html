@@ -1,0 +1,157 @@
+<form #bookForm="ngForm" (ngSubmit)="onSubmit(bookForm)">
+  <div class="form-group">
+    <label for="title">Book title</label>
+    <input type="text"
+           class="form-control is-invalid"
+           id="title"
+           name="title"
+           #bookTitle="ngModel"
+           required
+           minlength="2"
+           placeholder="Real-Time Rendering, Third Edition"
+           [(ngModel)]="book.title"
+           [ngClass]="{'is-invalid': bookTitle.errors && bookTitle.touched}">
+    <div
+      class="invalid-feedback"
+      *ngIf="bookTitle.errors?.minlength">
+      Must be at least 2 characters
+    </div>
+    <div
+      class="invalid-feedback"
+      *ngIf="bookTitle.errors?.required">
+      This field is required
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="description">Book description</label>
+    <input type="text"
+           class="form-control"
+           id="description"
+           name="description"
+           #bookDesc="ngModel"
+           required
+           minlength="10"
+           placeholder="This is my favorite 3D graphics book by a wide margin."
+           [(ngModel)]="book.description"
+           [ngClass]="{'is-invalid': bookDesc.errors && bookDesc.touched}">
+    <div
+      class="invalid-feedback"
+      *ngIf="bookDesc.errors?.minlength">
+      Must be at least 10 characters
+    </div>
+    <div
+      class="invalid-feedback"
+      *ngIf="bookDesc.errors?.required">
+      This field is required
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="currentPage">Current page you are reading</label>
+      <input
+        type="number"
+        class="form-control"
+        id="currentPage"
+        name="currentPage"
+        placeholder="0"
+        #bookCurrentPage="ngModel"
+        required
+        [(ngModel)]="book.currentPage"
+        [ngClass]="{'is-invalid': bookCurrentPage.errors && bookCurrentPage.touched}">
+      <!--<div-->
+      <!--class="invalid-feedback"-->
+      <!--*ngIf="bookCurrentPage.errors?.min">-->
+      <!--Must be equal to or more than zero pages-->
+      <!--</div>-->
+      <div
+        class="invalid-feedback"
+        *ngIf="bookCurrentPage.errors?.required">
+        This field is required
+      </div>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="totalPage">Total page of book</label>
+      <input type="number"
+             class="form-control"
+             id="totalPage"
+             name="totalPage"
+             placeholder="1000"
+             #bookTotalPage="ngModel"
+             required
+             [(ngModel)]="book.totalPage"
+             [ngClass]="{'is-invalid': bookTotalPage.errors && bookTotalPage.touched}">
+      <!--<div-->
+      <!--class="invalid-feedback"-->
+      <!--*ngIf="bookTotalPage.errors?.min">-->
+      <!--Must be more than zero pages-->
+      <!--</div>-->
+      <div
+        class="invalid-feedback"
+        *ngIf="bookTotalPage.errors?.required">
+        This field is required
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="custom-control custom-checkbox mb-3">
+      <input type="checkbox" class="custom-control-input" id="checkbox" (change)="enabledQuote = !enabledQuote" [checked]="enabledQuote">
+      <label class="custom-control-label" for="checkbox">Add Quote</label>
+    </div>
+  </div>
+  <div class="form-group" *ngIf="enabledQuote">
+    <label for="quoteContent">Quote content</label>
+    <input type="text"
+           class="form-control"
+           id="quoteContent"
+           name="quoteContent"
+           placeholder="You'll get brilliantly lucid explanations of concepts like vertex morphing and variance shadow mapping."
+           #bookQuoteContent="ngModel"
+           required
+           minlength="10"
+           [(ngModel)]="book.quote.content"
+           [ngClass]="{'is-invalid': bookQuoteContent.errors && bookQuoteContent.touched}">
+    <div
+      class="invalid-feedback"
+      *ngIf="bookQuoteContent.errors?.minlength">
+      Must be at least 10 characters
+    </div>
+    <div
+      class="invalid-feedback"
+      *ngIf="bookQuoteContent.errors?.required">
+      This field is required
+    </div>
+  </div>
+  <div class="form-group" *ngIf="enabledQuote">
+    <label for="quoteAuthor">Quote author</label>
+    <input type="text"
+           class="form-control"
+           id="quoteAuthor"
+           name="quoteAuthor"
+           placeholder="Logan Decker"
+           #bookQuoteAuthor="ngModel"
+           minlength="2"
+           [(ngModel)]="book.quote.author"
+           [ngClass]="{'is-invalid': bookQuoteAuthor.errors && bookQuoteAuthor.touched}">
+    <div
+      class="invalid-feedback"
+      *ngIf="bookQuoteAuthor.errors?.minlength">
+      Must be at least 2 characters
+    </div>
+    <div
+      class="invalid-feedback"
+      *ngIf="bookQuoteAuthor.errors?.required">
+      This field is required
+    </div>
+  </div>
+  <button
+    *ngIf="!isEdit"
+    [disabled]="!bookForm.form.valid"
+    class="btn btn-primary btn-block mb-3">Add Book
+  </button>
+  <button
+    *ngIf="isEdit"
+    [disabled]="!bookForm.form.valid"
+    class="btn btn-warning btn-block mb-3">Edit Book
+  </button>
+</form>
