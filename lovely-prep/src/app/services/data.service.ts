@@ -77,9 +77,14 @@ export class DataService {
   // can only update currentPage for demo
   updateBook(book: Book): Observable<Book> {
     const url = `${this.booksUrl}/${book._id}`;
-    return this.http.put<Book>(url, {
-      currentPage: book.currentPage,
-    }, httpOptions);
+    const body = new HttpParams()
+      .set('title', book.title)
+      .set('description', book.description)
+      .set('currentPage', book.currentPage.toString())
+      .set('totalPage', book.totalPage.toString())
+      .set('quoteContent', book.quote.content)
+      .set('quoteAuthor', book.quote.author);
+    return this.http.put<Book>(url, body, httpOptions);
   }
 
   removeBook(book: Book | string): Observable<any> {
