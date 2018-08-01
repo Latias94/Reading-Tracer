@@ -1,7 +1,7 @@
 # Reading Tracer
-A demo for Week 3 preparation of Advance Internet Programming subject.  
+A MEAN demo for Week 3 preparation of Advance Internet Programming subject.
 
-Server Side: Express.js + MongoDB + Mongoose  
+Server Side: Node.js + Express.js + MongoDB + Mongoose  
 Client Side: Angular + Bootstrap
 
 ## Install
