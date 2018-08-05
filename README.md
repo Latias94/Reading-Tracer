@@ -22,3 +22,7 @@ npm run dev
 ```
 
 It should run in a new browser window. If no, please visit this demo in [http://localhost:4200/](http://localhost:4200/).
+
+## Screenshot
+
+![](https://i.loli.net/2018/08/01/5b61ce08b1f5c.png)
