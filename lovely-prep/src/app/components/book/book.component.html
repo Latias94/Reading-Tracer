@@ -1,0 +1,8 @@
+<a routerLink="/books" class="btn btn-light btn-sm mb-3">Back</a>
+
+<div *ngIf="book" class="card">
+  <div class="card-body">
+    <h3>{{book.title}}</h3>
+    <p>{{book.description}}</p>
+  </div>
+</div>

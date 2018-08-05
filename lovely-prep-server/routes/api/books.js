@@ -30,13 +30,13 @@ router.get('/:id', (req, res) => {
   const errors = {};
 
   Book.findById(req.params.id)
-    .then((books) => {
-      if (!books) {
+    .then((book) => {
+      if (!book) {
         errors.booknotfound = 'No books found';
         return res.status(404).json(errors);
       }
 
-      res.json(books);
+      res.json(book);
       return false;
     })
     .catch(() => res.status(404).json({

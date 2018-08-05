@@ -4,7 +4,7 @@
 </app-book-form>
 <ul class="list-unstyled" *ngIf="books?.length > 0">
   <li class="card card-body mb-2" *ngFor="let book of books">
-    <h3>{{ book.title }}</h3>
+    <h3><a routerLink="/book/{{book._id}}">{{ book.title }}</a></h3>
     <ul class="list-group">
       <li class="list-group-item">Description: {{ book.description }}</li>
       <li class="list-group-item">
@@ -33,7 +33,7 @@
     </div>
     <br>
     <div>
-      <button class="btn btn-danger" (click)="removeBook(book)" ><i class="fa fa-remove"></i></button>
+      <button class="btn btn-danger" (click)="removeBook(book)"><i class="fa fa-remove"></i></button>
       &nbsp;
       <button class="btn btn-info" (click)="editBook(book)"><i class="fa fa-pencil"></i></button>
     </div>
