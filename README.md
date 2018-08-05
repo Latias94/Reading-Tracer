@@ -25,4 +25,4 @@ It should run in a new browser window. If no, please visit this demo in [http://
 
 ## Screenshot
 
-![](https://i.loli.net/2018/08/01/5b61ce08b1f5c.png)
+![](https://i.loli.net/2018/08/05/5b669fdad862a.png)
